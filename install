@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+# Install C coloration for PS1 (C is fast, speeds up prompt)
+
+# Create environment variables
+HERE=$(dirname $(realpath $0))
+. $HERE/.envrc
+
+# Compile C files in this directory and move them to path
+for exe in $(ls $HERE/*.c)
+do
+  [[ -f ${exe%.c} ]] && rm ${exe%.c} 2>$errlog
+  gcc $exe "${flags[@]}" ${exe%.c} 2>$errlog
+  sudo mv ${exe%.c} /usr/bin/ 2>$errlog
+done
+
+# Add the custom PS1 prompt to the bash profile
+sudo cp ps1.sh /etc/profile.d/ 2>$errlog
+
+# Remove Empty errlog and Check for errors
+[[ $(wc $errlog|awk '{print $1}') == 0 ]] && rm $errlog
+[[ ! -f $errlog ]] && echo -e "\u001b[38;5;31mPlease reload /etc/profile\u001b[0m"

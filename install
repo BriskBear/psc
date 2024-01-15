@@ -14,7 +14,7 @@ do
 done
 
 # Add the custom PS1 prompt to the bash profile
-sudo cp ps1.sh /etc/profile.d/ 2>$errlog
+sudo cp ./{git-sh-prompt,ps1.sh} /etc/profile.d/ 2>$errlog
 
 # Remove Empty errlog and Check for errors
 [[ $(wc $errlog|awk '{print $1}') == 0 ]] && rm $errlog

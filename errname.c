@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     color = "\033[0;32m"; // green
     printf("%s]|[%s%s", color, "\033[0m", hostname);
   } else {
-    color = "\033[1;31m"; // red
+    color = "\033[38;5;196m"; // red
     printf("%s%d%s%s", color, err, "\033[0m", hostname);
   }
   return 0;

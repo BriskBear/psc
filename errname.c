@@ -13,14 +13,14 @@ int main(int argc, char *argv[]) {
   int hue = rand() % 255;             // random color
 
   gethostname(result, sizeof(result));
-  snprintf(hostname, sizeof(hostname), "\033[38;5;%dm%s\033[0m", hue, result);
+  snprintf(hostname, sizeof(hostname), "\1\e[38;5;%dm\2%s\1\e[0m\2", hue, result);
 
   if (err == 0) {
-    color = "\033[0;32m"; // green
-    printf("%s]|[%s%s", color, "\033[0m", hostname);
+    color = "\1\e[38;5;70m\e[1m\2"; // green
+    printf("%s]|[%s%s", color, "\1\e[0m\2", hostname);
   } else {
-    color = "\033[38;5;196m"; // red
-    printf("%s%d%s%s", color, err, "\033[0m", hostname);
+    color = "\1\e[48;5;196m\e[38;5;255m\e[1m\2"; // red
+    printf("%s%d%s%s", color, err, "\1\e[0m\2", hostname);
   }
   return 0;
 }
